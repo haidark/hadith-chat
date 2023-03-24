@@ -35,7 +35,7 @@ def respond_to_user(question, channel_name):
         {"question": question, "chat_history": chat_history}
     )
     chat_history[-1] = (question, result["answer"])
-    src_docs = "\n".join([f"{doc.metadata['reference']} ({doc.metadata['source']})" for doc in result['source_documents']])
+    src_docs = "\n".join([f"{doc.metadata['reference']} <{doc.metadata['source']}>" for doc in result['source_documents']])
     sys_msg = result['answer']+"\nHere are relevant ahadith:\n"+src_docs
 
     # trim the context length if needed:
