@@ -34,9 +34,10 @@ def respond_to_user(question, channel_name):
     result = qa_chain(
         {"question": question, "chat_history": chat_history}
     )
+    print(result)
     chat_history[-1] = (question, result["answer"])
     src_docs = "\n".join([f"{doc.metadata['reference']} <{doc.metadata['source']}>" for doc in result['source_documents']])
-    sys_msg = result['answer']+"\nHere are relevant ahadith:\n"+src_docs
+    sys_msg = "\n".join(["I understood your question as: "+result['condensed_question'], result['answer'], "Here are relevant ahadith:", src_docs])
 
     # trim the context length if needed:
     if len(chat_history) > MAX_CONTEXT:

@@ -8,10 +8,12 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAIChat
 from langchain.vectorstores.base import VectorStore
 
+from custom_chat_vector_db import CustomChatVectorDBChain
+
 
 def get_chain(
     vectorstore: VectorStore, question_handler, stream_handler, tracing: bool = False
-) -> ChatVectorDBChain:
+) -> ChatVectorDBChain or CustomChatVectorDBChain:
     """Create a ChatVectorDBChain for question/answering."""
     # Construct a ChatVectorDBChain with a streaming llm for combine docs
     # and a separate, non-streaming llm for question generation
@@ -44,12 +46,13 @@ def get_chain(
         streaming_llm, chain_type="stuff", prompt=QA_PROMPT, callback_manager=manager
     )
 
-    qa = ChatVectorDBChain(
+    qa = CustomChatVectorDBChain(
         vectorstore=vectorstore,
         combine_docs_chain=doc_chain,
         question_generator=question_generator,
         callback_manager=manager,
         return_source_documents=True,
+        return_condensed_question=True,
         top_k_docs_for_context=5
     )
     return qa
