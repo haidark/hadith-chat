@@ -13,3 +13,4 @@ bs4
 unstructured
 libmagic
 python-dotenv
+InstructorEmbedding

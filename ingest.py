@@ -2,7 +2,7 @@
 import pickle
 
 from hadith_loader import HadithJsonLoader
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores.faiss import FAISS
 
@@ -16,7 +16,7 @@ def ingest_docs():
         chunk_overlap=200,
     )
     documents = text_splitter.split_documents(raw_documents)
-    embeddings = HuggingFaceEmbeddings()
+    embeddings = HuggingFaceInstructEmbeddings()
     vectorstore = FAISS.from_documents(documents, embeddings)
 
     # Save vectorstore

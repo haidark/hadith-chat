@@ -32,12 +32,16 @@ class HadithJsonLoader(BaseLoader):
 
             with open(p, encoding=self.encoding, errors=self.errors) as f:
                 print(p)
+                compilation = p.parts[-2]
                 book_data = json.load(f)
-                link = book_data['book_link']
                 book_name = book_data["english_name"]
+
                 for hadith in book_data['hadith_data']:
                     text = hadith["english"].replace("\n", "")
-                    reference = hadith['reference']
+                    reference = hadith['reference'].replace('`', '')
+                    abs_hadith_num = reference.split(' ')[-1]
+                    text = '\n'.join([reference, text])
+                    link = f'https://sunnah.com/{compilation}:{abs_hadith_num}'
                     book_reference = hadith['book_reference']
                     hadith_number = hadith['hadith_number']
                     metadata = {"source": str(link), "reference": f"{reference} {book_reference} {book_name} {hadith_number}"}

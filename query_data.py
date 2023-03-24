@@ -31,7 +31,7 @@ def get_chain(
         callback_manager=question_manager,
     )
     streaming_llm = OpenAIChat(
-        streaming=True,
+        streaming=False,
         callback_manager=stream_manager,
         verbose=True,
         temperature=0,
@@ -50,6 +50,6 @@ def get_chain(
         question_generator=question_generator,
         callback_manager=manager,
         return_source_documents=True,
-        top_k_docs_for_context=4
+        top_k_docs_for_context=5
     )
     return qa

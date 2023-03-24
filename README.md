@@ -8,3 +8,11 @@ Using ChatGPT, Langchain-AI, Huggingface, Discord, and Sunnah.com, we collect ha
 
 Due to the nature of the technology, hallucination and misinterpretation by the model is possible. This is why references are provided, statements from the model should not be accepted without verification.
 
+## How to run
+
+- Install the dependencies with `pip install -r requirements.txt`
+- Run `download_hadith.sh` to fetch the hadith compilations locally
+- Run `ingest.py` to create the vectorstore
+- Set up a discord bot on the server and note the bot's key as DISCORD_TOKEN
+- add OPENAI_API_KEY and DISCORD_TOKEN to environment variables
+- Run `hc_chatvectordb.py`
